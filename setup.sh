@@ -30,7 +30,7 @@ echo $vbvm
 case $vbvm in
     "y") sh vb.sh;;
     *) echo "the guest additions will not be installed";;
-esac﻿
+esac
 
 #installs xorg
 pacman -S xorg-server --noconfirm
@@ -85,7 +85,7 @@ case $displaymanager in
     "Qingy") pacman -S qingy --noconfirm;;
     "SDDM") pacman -S sddm --noconfirm;;
     "SLiM") pacman -S slim --noconfirm;;
-	"XDM") pacman -S xorg-xdm --noconfirm;;
+    "XDM") pacman -S xorg-xdm --noconfirm;;
     *) echo "Sorry, your selection was not on the list";;
 esac﻿
 
