@@ -28,7 +28,7 @@ echo -e "is this a virtualbox VM? y/n"
 read vbvm
 echo $vbvm
 case $vbvm in
-    "y") pacman -S virtualbox-guest-utils virtualbox-guest-modules virtualbox-guest-dkms ech;;
+    "y") pacman -S virtualbox-guest-utils virtualbox-guest-modules virtualbox-guest-dkms;;
     *) echo "the guest additions will not be installed";;
 esac﻿
 
@@ -75,8 +75,25 @@ case $answer in
     "openbox") pacman -S openbox --noconfirm;;
     "KDE") pacman -S plasma kde-applications --noconfirmm;;
     "cinnamon") pacman -S cinnamon --noconfirm;;
-    "mate") pacman -S mate --noconfirm
-    "mate-gtk3") pacman -S mate-gtk3 --noconfirm
+    "mate") pacman -S mate --noconfirm;;
+    "mate-gtk3") pacman -S mate-gtk3 --noconfirm;;
+    *) echo "Sorry, your selection was not on the list";;
+esac﻿
+
+#choose display manager
+echo "what display manager do you want to use?"
+echo -e "[GDM][KDM][LightDM][LXDM][MDM][Qingy][SDDM][SLiM][XDM]"
+read displaymanager
+case $displaymanager in
+    "GDM") pacman -S gdm --noconfirm;;
+    "KDM") pacman -S kdebase-workspace --noconfirm;;
+    "LightDM") pacman -S lightdm --noconfirm;;
+    "LXDM") pacman -S lxdm --noconfirmm;;
+    "MDM") pacman -S mdm-display-manager --noconfirm;;
+    "Qingy") pacman -S qingy --noconfirm;;
+    "SDDM") pacman -S sddm --noconfirm;;
+    "SLiM") pacman -S slim --noconfirm;;
+	"XDM") pacman -S xorg-xdm --noconfirm;;
     *) echo "Sorry, your selection was not on the list";;
 esac﻿
 
@@ -85,6 +102,6 @@ echo -e "do you want to reboot now? y/n"
 read reboot
 echo $reboot
 case $reboot in
-	"y") reboot now
-	*) echo "system will not reboot"
+	"y") reboot now;;
+	*) echo "system will not reboot";;
 esac
