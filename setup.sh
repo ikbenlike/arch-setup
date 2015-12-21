@@ -21,10 +21,6 @@
 
 #!/bin/bash
 #echo prints things to the terminal
-echo "flex, youre encouraged to read this file"
-echo "this should install everything"
-echo "you exit the text editor nano (the one I use for"
-echo "everything in this script) by pressing ctrl+x"
 
 #gets updates
 pacman -Syu
