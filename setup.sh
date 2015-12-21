@@ -27,7 +27,7 @@ pacman -Syu
 echo -e "is this a virtualbox VM? y/n"
 read vbvm
 echo $vbvm
-case $answer in
+case $vbvm in
     "y") pacman -S virtualbox-guest-utils virtualbox-guest-modules virtualbox-guest-dkms ech;;
     *) echo "the guest additions will not be installed";;
 esac﻿
@@ -65,18 +65,26 @@ pacman -S xorg-twm --noconfirm
 pacman -S xorg-xinit --noconfirm
 pacman -S xorg-xclock --noconfirm
 
-#starts graphical session
-echo "a graphical session will be started"
-startx
-
 #choose desktop environment
 echo "what desktop environment do you want to use?"
-echo -e "[xfce][gnome][openbox][KDE]"
+echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3]"
 read answer
 case $answer in
     "xfce") pacman -S xfce4 --noconfirm;;
     "gnome") pacman -S gnome-desktop --noconfirm;;
     "openbox") pacman -S openbox --noconfirm;;
-    "KDE") pacamn -S plasma kde-applications --noconfirmm;;
+    "KDE") pacman -S plasma kde-applications --noconfirmm;;
+    "cinnamon") pacman -S cinnamon --noconfirm;;
+    "mate") pacman -S mate --noconfirm
+    "mate-gtk3") pacman -S mate-gtk3 --noconfirm
     *) echo "Sorry, your selection was not on the list";;
 esac﻿
+
+#ask for reboot
+echo -e "do you want to reboot now? y/n"
+read reboot
+echo $reboot
+case $reboot in
+	"y") reboot now
+	*) echo "system will not reboot"
+esac
