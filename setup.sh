@@ -28,17 +28,9 @@ echo -e "is this a virtualbox VM? y/n"
 read vbvm
 echo $vbvm
 case $vbvm in
-    "y") pacman -S virtualbox-guest-utils virtualbox-guest-modules virtualbox-guest-dkms;;
+    "y") sh vb.sh;;
     *) echo "the guest additions will not be installed";;
 esac﻿
-
-#create conf file
-echo "write this: vboxguest, vboxsf, vboxv without commas"
-echo "on seperate lines"
-nano /etc/modules-load.d/virtualbox.conf
-
-#sync time with host
-systemctl enable vboxservice.service
 
 #installs xorg
 pacman -S xorg-server --noconfirm
@@ -105,3 +97,5 @@ case $reboot in
 	"y") reboot now;;
 	*) echo "system will not reboot";;
 esac
+
+exit
