@@ -20,15 +20,17 @@
 
 
 #!/bin/bash
-#echo prints things to the terminal
 
 #gets updates
 pacman -Syu
 
-#install vbox-guest-additions
-pacman -S virtualbox-guest-utils --noconfirm
-pacman -S virtualbox-guest-modules --noconfirm
-pacman -S virtualbox-guest-dkms --noconfirm
+echo -e "is this a virtualbox VM? y/n"
+read vbvm
+echo $vbvm
+case $answer in
+    "y") pacman -S virtualbox-guest-utils virtualbox-guest-modules virtualbox-guest-dkms ech;;
+    *) echo "the guest additions will not be installed";;
+esac﻿
 
 #create conf file
 echo "write this: vboxguest, vboxsf, vboxv without commas"
@@ -43,7 +45,7 @@ pacman -S xorg-server --noconfirm
 pacman -S xorg-server-utils --noconfirm
 pacman -S xorg-apps --noconfirm
 
-#adds user called flex and set password
+#adds user and sets password
 echo -e "enter new username"
 read name
 useradd -m -G wheel -s /bin/bash $name
