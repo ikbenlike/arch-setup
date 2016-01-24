@@ -28,8 +28,8 @@ echo -e "is this a virtualbox VM? y/n"
 read vbvm
 echo $vbvm
 case $vbvm in
-    "y") sh vb.sh;;
-    *) echo "the guest additions will not be installed";;
+	"y") sh vb.sh;;
+	*) echo "the guest additions will not be installed";;
 esac
 
 #installs xorg
@@ -62,32 +62,32 @@ echo "what desktop environment do you want to use?"
 echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3]"
 read answer
 case $answer in
-    "xfce") pacman -S xfce4 --noconfirm;;
-    "gnome") pacman -S gnome-desktop --noconfirm;;
-    "openbox") pacman -S openbox --noconfirm;;
-    "KDE") pacman -S plasma kde-applications --noconfirmm;;
-    "cinnamon") pacman -S cinnamon --noconfirm;;
-    "mate") pacman -S mate --noconfirm;;
-    "mate-gtk3") pacman -S mate-gtk3 --noconfirm;;
-    *) echo "Sorry, your selection was not on the list";;
-esac﻿
+	"xfce") pacman -S xfce4 --noconfirm;;
+	"gnome") pacman -S gnome-desktop --noconfirm;;
+	"openbox") pacman -S openbox --noconfirm;;
+	"KDE") pacman -S plasma kde-applications --noconfirmm;;
+	"cinnamon") pacman -S cinnamon --noconfirm;;
+	"mate") pacman -S mate --noconfirm;;
+	"mate-gtk3") pacman -S mate-gtk3 --noconfirm;;
+	*) echo "Sorry, your selection was not on the list";;
+esac
 
 #choose display manager
 echo "what display manager do you want to use?"
 echo -e "[GDM][KDM][LightDM][LXDM][MDM][Qingy][SDDM][SLiM][XDM]"
 read displaymanager
 case $displaymanager in
-    "GDM") pacman -S gdm --noconfirm;;
-    "KDM") pacman -S kdebase-workspace --noconfirm;;
-    "LightDM") pacman -S lightdm --noconfirm;;
-    "LXDM") pacman -S lxdm --noconfirmm;;
+	"GDM") pacman -S gdm --noconfirm;;
+	"KDM") pacman -S kdebase-workspace --noconfirm;;
+	"LightDM") pacman -S lightdm --noconfirm;;
+	"LXDM") pacman -S lxdm --noconfirmm;;
     "MDM") pacman -S mdm-display-manager --noconfirm;;
     "Qingy") pacman -S qingy --noconfirm;;
     "SDDM") pacman -S sddm --noconfirm;;
     "SLiM") pacman -S slim --noconfirm;;
     "XDM") pacman -S xorg-xdm --noconfirm;;
     *) echo "Sorry, your selection was not on the list";;
-esac﻿
+esac
 
 #ask for reboot
 echo -e "do you want to reboot now? y/n"
