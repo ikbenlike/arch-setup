@@ -1,80 +1,103 @@
-#  setup.sh
-#  
 #  Copyright 2015 thewatcher <thewatcher@thewatcher>
-#  
+#
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
-#  
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-#  
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
-#  
-#  
+#
+#
+
+
 
 #!/bin/bash
 
-#add new user
-echo -e "what do you want to call the new user?"
-read user
-useradd $user
-passwd $user
+#gets updates
+pacman -Syu
 
-#install sudo
-pacman -Syu sudo --noconfirm
-
-#install xorg stuffs
-pacman -S xorg-xserver --noconfirm
-pacman -S xorg-server-utils --noconfirm
-pacman -S xorg-apps --noconfirm
-pacman -S xorg-twm --noconfirm
-pacman -S xorg-xclock --noconfirm
-pacman -S xterm --noconfirm
-pacman -S xorg-xinit --noconfirm
-
-#vbox vm or not
-echo -e "is this a Virtualbox VM? [Y/n]"
-read vm
-case $vm in
+echo -e "is this a virtualbox VM? y/n"
+read vbvm
+echo $vbvm
+case $vbvm in
 	"y") sh vb.sh;;
-	"Y") sh vb.sh;;
-	*) echo "virtualbox guest additions will not be installed";;
+	*) echo "the guest additions will not be installed";;
 esac
 
-#choose desktop environment 
-echo "what desktop environment do you want to install?"
-echo -e "[gnome][xfce][kde][mate][mate-gtk3][cinnamon][lxde][lxqt][deepin][enlightenment]"
-read desktop
-case $desktop in
-	"gnome") pacman -S gnome gnome-extra --noconfirm;;
-	"xfce") pacman -s xfce4 xfce4-goodies --noconfirm;;
-	"kde") pacman -S plasma --noconfirm;;
-	"mate") pacman -S mate mate-extra --noconfirm;;
-	"mate-gtk3") pacman -S mate-gtk3 mate-extra-gtk3 --noconfirm;;
+#installs xorg
+pacman -S xorg-server --noconfirm
+pacman -S xorg-server-utils --noconfirm
+pacman -S xorg-apps --noconfirm
+
+#adds user and sets password
+echo -e "enter new username"
+read name
+useradd -m -G wheel -s /bin/bash $name
+usermod -a -G sudo $name
+echo "set password for $name"
+passwd $name
+
+#installs sudo
+pacman -S sudo --noconfirm
+
+#configure sudo
+#echo "remove the hashtag before the line"
+#echo "%wheel ALL=(ALL) ALL"
+mv /sudoers /etc/sudoers
+#nano /etc/sudoers
+
+#installs xorg-xinit and twm and xorg-xclock
+pacman -S xorg-twm --noconfirm
+pacman -S xorg-xinit --noconfirm
+pacman -S xorg-xclock --noconfirm
+
+#choose desktop environment
+echo "what desktop environment do you want to use?"
+echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3]"
+read answer
+case $answer in
+	"xfce") pacman -S xfce4 --noconfirm;;
+	"gnome") pacman -S gnome-desktop --noconfirm;;
+	"openbox") pacman -S openbox --noconfirm;;
+	"KDE") pacman -S plasma kde-applications --noconfirmm;;
 	"cinnamon") pacman -S cinnamon --noconfirm;;
-	"lxde") pacman -S lxde-common lxde --noconfirm;;
-	"lxqt") pacman -S lxqt oxygen-icons --noconfirm;;
-	"deepin") pacman -S deeping deepin-extra --noconfirm;;
-	"enlightenment") pacman -S enlightenment --noconfirm;;
-	*) echo "your choice was not available";;
+	"mate") pacman -S mate --noconfirm;;
+	"mate-gtk3") pacman -S mate-gtk3 --noconfirm;;
+	*) echo "Sorry, your selection was not on the list";;
 esac
 
 #choose display manager
 echo "what display manager do you want to use?"
-echo -e "[gdm][lightdm][lxdm][sddm][xdm]"
-read manager
-case $manager in
-	"gdm") pacman -S gmd --noconfirm && systemctl enable gdm.service;;
-	"lightdm") pacman -S lightdm --noconfirm && systemctl enable lightdm.service;;
-	"lxdm") pacman -S lxdm --noconfirm && systemctl enable lxdm.service;;
-	"sddm") pacman -S sddm --noconfirm && systemctl enable sddm.service;;
-	"xdm") pacman -S xorg-xdm --noconfirm && systemctl enable xdm.service;;
-	*) echo "the option you chose is not available"
+echo -e "[GDM][KDM][LightDM][LXDM][MDM][Qingy][SDDM][SLiM][XDM]"
+read displaymanager
+case $displaymanager in
+	"GDM") pacman -S gdm --noconfirm;;
+	"KDM") pacman -S kdebase-workspace --noconfirm;;
+	"LightDM") pacman -S lightdm --noconfirm;;
+	"LXDM") pacman -S lxdm --noconfirmm;;
+    "MDM") pacman -S mdm-display-manager --noconfirm;;
+    "Qingy") pacman -S qingy --noconfirm;;
+    "SDDM") pacman -S sddm --noconfirm;;
+    "SLiM") pacman -S slim --noconfirm;;
+    "XDM") pacman -S xorg-xdm --noconfirm;;
+    *) echo "Sorry, your selection was not on the list";;
 esac
+
+#ask for reboot
+echo -e "do you want to reboot now? y/n"
+read reboot
+echo $reboot
+case $reboot in
+	"y") reboot now;;
+	*) echo "system will not reboot";;
+esac
+
+exit
