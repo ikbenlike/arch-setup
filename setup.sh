@@ -60,14 +60,14 @@ done
 #installs sudo
 pacman -S sudo --noconfirm
 #add sudo config file
-mv /sudoers /etc/sudoers
+mv ./sudoers /etc/sudoers
 
 #adds user and sets password
 echo -e "enter new username:"
 read name
 echo "set password for $name:"
-passwd $name
 useradd -mG wheel -s /bin/bash $name
+passwd $name
 groupadd sudo
 groupadd admin
 usermod -aG sudo $name
