@@ -24,13 +24,38 @@
 #gets updates
 pacman -Syu
 
-echo -e "is this a virtualbox VM? y/n"
-read vbvm
-echo $vbvm
-case $vbvm in
-    "y") sh vb.sh;;
-    *) echo "the guest additions will not be installed";;
-esac
+while [ 1 ]; do
+    echo -e "is this a virtualbox VM? y/n"
+    read vbvm
+    echo $vbvm
+    case $vbvm in
+        "y")
+        sh vb.sh
+        break
+        ;;
+        "Y")
+        sh vb.sh
+        break
+        ;;
+        "yes")
+        sh vb.sh
+        break
+        ;;
+        "n")
+        sh vb.sh
+        break
+        ;;
+        "N")
+        sh vb.sh
+        break
+        ;;
+        "no")
+        sh vb.sh
+        break
+        ;;
+        *) echo "Invalid input $vbvm";;
+    esac
+done
 
 #installs sudo
 pacman -S sudo --noconfirm
@@ -38,11 +63,13 @@ pacman -S sudo --noconfirm
 mv /sudoers /etc/sudoers
 
 #adds user and sets password
-echo -e "enter new username"
+echo -e "enter new username:"
 read name
-echo "set password for $name"
+echo "set password for $name:"
 passwd $name
 useradd -mG wheel -s /bin/bash $name
+groupadd sudo
+groupadd admin
 usermod -aG sudo $name
 usermod -aG admin $name
 
@@ -57,18 +84,44 @@ pacman -S xorg-xclock --noconfirm
 
 #choose desktop environment
 echo "what desktop environment do you want to use?"
-echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3]"
-read answer
-case $answer in
-    "xfce") pacman -S xfce4 --noconfirm;;
-    "gnome") pacman -S gnome-desktop --noconfirm;;
-    "openbox") pacman -S openbox --noconfirm;;
-    "KDE") pacman -S plasma kde-applications --noconfirmm;;
-    "cinnamon") pacman -S cinnamon --noconfirm;;
-    "mate") pacman -S mate --noconfirm;;
-    "mate-gtk3") pacman -S mate-gtk3 --noconfirm;;
-    *) echo "Sorry, your selection was not on the list";;
-esac
+while [ 1 ]; do
+    echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3][none]"
+    read answer
+    case $answer in
+        "xfce")
+        pacman -S xfce4 --noconfirm
+        break
+        ;;
+        "gnome")
+        pacman -S gnome-desktop --noconfirm
+        break
+        ;;
+        "openbox")
+        pacman -S openbox --noconfirm
+        break
+        ;;
+        "KDE")
+        pacman -S plasma kde-applications --noconfirmm
+        break
+        ;;
+        "cinnamon")
+        pacman -S cinnamon --noconfirm
+        break
+        ;;
+        "mate")
+        pacman -S mate --noconfirm
+        break
+        ;;
+        "mate-gtk3")
+        pacman -S mate-gtk3 --noconfirm
+        break
+        ;;
+        "none")
+        break
+        ;;
+        *) echo "Sorry, your selection was not on the list";;
+    esac
+done
 
 #choose display manager
 echo "what display manager do you want to use?"
@@ -79,50 +132,62 @@ while [ 1 ]; do
         "GDM")	#if user wants GDM
         pacman -S gdm --noconfirm
         systemctl enable gdm.service
+        break
         ;;
         "gdm")	#if user wants GDM
         pacman -S gdm --noconfirm
         systemctl enable gdm.service
+        break
         ;;
         "LightDM")	#if user wants LightDM
         pacman -S lightdm --noconfirm
         systemctl enable lightdm.service
+        break
         ;;
         "lightdm")	#if user wants LightDM
         pacman -S lightdm --noconfirm
         systemctl enable lightdm.service
+        break
         ;;
         "LXDM")		#if user wants LXDM
-        pacman -S lxdm --noconfirmm
+        pacman -S lxdm --noconfirm
         systemctl enable lxdm.service
+        break
         ;;
         "lxdm")		#if user wants LXDM
         pacman -S lxdm --noconfirmm
         systemctl enable lxdm.service
+        break
         ;;
         "SDDM")		#if user wants SDDM
         pacman -S sddm --noconfirm
         systemctl enable sddm.service
+        break
         ;;
         "sddm")		#if user wants SDDM
         pacman -S sddm --noconfirm
         systemctl enable sddm.service
+        break
         ;;
         "SLiM")		#if user wants SLiM
         pacman -S slim --noconfirm
         systemctl enable slim.service
+        break
         ;;
         "slim")		#if user wants SLiM
         pacman -S slim --noconfirm
         systemctl enable slim.service
+        break
         ;;
         "XDM")		#if user wants XDM
         pacman -S xorg-xdm --noconfirm
         systemctl enable xdm.service
+        break
         ;;
         "xdm")		#if user wants XDM
         pacman -S xorg-xdm --noconfirm
         systemctl enable xdm.service
+        break
         ;;
         "none")		#if user doesn't want a display manager
         break
@@ -134,22 +199,59 @@ while [ 1 ]; do
 done
 
 #ask for reboot
-echo -e "do you want to reboot now? y/n"
-read reboot
-case $reboot in
-    "y") reboot now;;
-    *) echo "system will not reboot";;
-esac
+while [ 1 ]; do
+    echo -e "do you want to reboot now? y/n"
+    read reboot
+    case $reboot in
+        "y")
+        reboot now
+        break
+        ;;
+        "Y")
+        reboot now
+        break
+        ;;
+        "yes")
+        reboot now
+        break
+        ;;
+        "n")
+        break
+        ;;
+        "N")
+        break
+        ;;
+        "no")
+        break
+        ;;
+        *) echo "Invalid input $reboot";;
+    esac
+done
 
 #ask if user wants to start an X-session
-echo -e "do you want to start an X-server? y/n"
-read x
-case $x in
-    "y") startx;;
-    "yes") startx;;
-    "n") echo "exiting script...";;
-    "no") echo "exiting script...";;
-esac
+while [ 1 ]; do
+    echo -e "do you want to start an X-server? y/n"
+    read x
+    case $x in
+        "y")
+        startx
+        break
+        ;;
+        "yes")
+        startx
+        break
+        ;;
+        "n")
+        echo "exiting script..."
+        break
+        ;;
+        "no")
+        echo "exiting script..."
+        break
+        ;;
+        *) echo "Invalid input $x";;
+    esac
+done
 
 
 exit
