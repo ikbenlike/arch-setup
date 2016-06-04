@@ -32,28 +32,24 @@ case $vbvm in
     *) echo "the guest additions will not be installed";;
 esac
 
-#installs xorg
-pacman -S xorg-server --noconfirm
-pacman -S xorg-server-utils --noconfirm
-pacman -S xorg-apps --noconfirm
+#installs sudo
+pacman -S sudo --noconfirm
+#add sudo config file
+mv /sudoers /etc/sudoers
 
 #adds user and sets password
 echo -e "enter new username"
 read name
-useradd -m -G wheel -s /bin/bash $name
-usermod -a -G sudo $name
 echo "set password for $name"
 passwd $name
+useradd -mG wheel -s /bin/bash $name
+usermod -aG sudo $name
+usermod -aG admin $name
 
-#installs sudo
-pacman -S sudo --noconfirm
-
-#configure sudo
-#echo "remove the hashtag before the line"
-#echo "%wheel ALL=(ALL) ALL"
-mv /sudoers /etc/sudoers
-#nano /etc/sudoers
-
+#installs xorg
+pacman -S xorg-server --noconfirm
+pacman -S xorg-server-utils --noconfirm
+pacman -S xorg-apps --noconfirm
 #installs xorg-xinit and twm and xorg-xclock
 pacman -S xorg-twm --noconfirm
 pacman -S xorg-xinit --noconfirm
