@@ -87,14 +87,14 @@ pacman -S xterm --noconfirm
 echo "what desktop environment do you want to use?"
 while [ 1 ]; do
     echo -e "[xfce][gnome][openbox][KDE][cinnamon][mate][mate-gtk3][none]"
-    read answer
-    case $answer in
+    read de
+    case $de in
         "xfce")
         pacman -S xfce4 --noconfirm
         break
         ;;
         "gnome")
-        pacman -S gnome-desktop --noconfirm
+        pacman -S gnome --noconfirm
         break
         ;;
         "openbox")
@@ -127,7 +127,7 @@ done
 #choose display manager
 echo "what display manager do you want to use?"
 while [ 1 ]; do
-    echo -e "[GDM][KDM][LightDM][LXDM][MDM][Qingy][SDDM][SLiM][XDM][none]"
+    echo -e "[GDM][LightDM][LXDM][SDDM][SLiM][XDM][none]"
     read displaymanager
     case $displaymanager in
         "GDM")	#if user wants GDM
