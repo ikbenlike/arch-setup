@@ -29,6 +29,8 @@ pacamn -S linux-headers
 pacman -S virtualbox-guest-utils --noconfirm
 pacman -S virtualbox-guest-modules --noconfirm
 pacman -S virtualbox-guest-dkms --noconfirm
+#install dkms module
+dkms -q install -m vboxguest -v 5.0.20_OSE -k 4.5.4-1-ARCH
 
 #enables services on boot
 systemctl enable vboxservice.service
