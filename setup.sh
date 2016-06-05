@@ -22,7 +22,7 @@
 #!/bin/bash
 
 #gets updates
-pacman -Syu
+pacman -Syu --noconfirm
 
 while [ 1 ]; do
     echo -e "is this a virtualbox VM? y/n"
