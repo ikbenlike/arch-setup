@@ -81,6 +81,7 @@ pacman -S xorg-apps --noconfirm
 pacman -S xorg-twm --noconfirm
 pacman -S xorg-xinit --noconfirm
 pacman -S xorg-xclock --noconfirm
+pacman -S xterm --noconfirm
 
 #choose desktop environment
 echo "what desktop environment do you want to use?"

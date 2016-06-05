@@ -23,6 +23,8 @@
 
 touch /etc/modules-load.d/virtualbox.conf
 echo -e vboxguest\\nvboxsf\\nvboxvideo >> /etc/modules-load.d/virtualbox.conf
+#install linux-headers
+pacamn -S linux-headers
 #install vbox guest additions
 pacman -S virtualbox-guest-utils --noconfirm
 pacman -S virtualbox-guest-modules --noconfirm
